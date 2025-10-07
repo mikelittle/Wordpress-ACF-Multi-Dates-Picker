@@ -4,7 +4,7 @@
 Plugin Name: ACF Multi Dates Picker
 Plugin URI: https://github.com/nan-guo/Wordpress-ACF-Multi-Dates-Picker
 Description: Advanced Custom Fields Multi Dates Picker
-Version: 1.1.1
+Version: 1.2.1
 Author: Nan GUO (Prodigious)
 Author URI: https://github.com/nan-guo
 License: GPLv2 or later
@@ -21,7 +21,7 @@ if( !class_exists('pdg_acf_plugin_multi_dates_picker') ) :
 class pdg_acf_plugin_multi_dates_picker {
 
 	// vars
-	var $settings;
+	protected $settings;
 
 
 	/*
@@ -48,10 +48,11 @@ class pdg_acf_plugin_multi_dates_picker {
 		);
 
 
-		// set text domain
-		// https://codex.wordpress.org/Function_Reference/load_plugin_textdomain
-		load_plugin_textdomain( 'acf-multi-dates-picker', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' );
-
+		add_action( 'init', function () {
+			// set text domain
+			// https://codex.wordpress.org/Function_Reference/load_plugin_textdomain
+			load_plugin_textdomain( 'acf-multi-dates-picker', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' );
+ 		});
 
 		// include field
 		add_action('acf/include_field_types', 	array($this, 'include_field_types')); // v5

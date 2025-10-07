@@ -9,12 +9,12 @@ if( !class_exists('pdg_acf_field_multi_dates_picker') ) :
 
 
 class pdg_acf_field_multi_dates_picker extends acf_field {
-	
+
 	// vars
-	var $settings, // will hold info such as dir / path
-		$defaults; // will hold default field options
-		
-		
+	protected $settings, // will hold info such as dir / path
+			  $defaults; // will hold default field options
+
+
 	/*
 	*  __construct
 	*
@@ -23,7 +23,7 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 	*  @since	3.6
 	*  @date	13/12/2017
 	*/
-	
+
 	function __construct( $settings )
 	{
 		// vars
@@ -33,18 +33,18 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 		$this->defaults = array(
 			'display_input'		=> true,
 		);
-		
-		
+
+
 		// do not delete!
     	parent::__construct();
-    	
-    	
+
+
     	// settings
 		$this->settings = $settings;
 
 	}
-	
-	
+
+
 	/*
 	*  create_options()
 	*
@@ -57,18 +57,18 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 	*
 	*  @param	$field	- an array holding all the field's data
 	*/
-	
+
 	function create_options( $field )
 	{
 		// defaults?
 		/*
 		$field = array_merge($this->defaults, $field);
 		*/
-		
+
 		// key is needed in the field names to correctly save the data
 		$key = $field['name'];
-		
-		
+
+
 		// Create Field Options HTML
 		?>
 <tr class="field_option field_option_<?php echo $this->name; ?>">
@@ -78,7 +78,7 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 	</td>
 	<td>
 		<?php
-		
+
 		do_action('acf/create_field', array(
 			'type'		=>	'radio',
 			'name'		=>	'fields['.$key.'][display_input]',
@@ -89,15 +89,15 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 				true		=> __('Yes','acf-multi-dates-picker'),
 			)
 		));
-		
+
 		?>
 	</td>
 </tr>
 		<?php
-		
+
 	}
-	
-	
+
+
 	/*
 	*  create_field()
 	*
@@ -109,17 +109,17 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 	*  @since	3.6
 	*  @date	13/12/2017
 	*/
-	
+
 	function create_field( $field )
 	{
 		// defaults?
-		
+
 		$field = array_merge($this->defaults, $field);
-		
-		
+
+
 		// perhaps use $field['preview_size'] to alter the markup?
-		
-		
+
+
 		// create Field HTML
 		$display_input = $field['display_input'];
 		// html
@@ -130,8 +130,8 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 		</div>
 		<?php
 	}
-	
-	
+
+
 	/*
 	*  input_admin_enqueue_scripts()
 	*
@@ -147,31 +147,31 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 	function input_admin_enqueue_scripts()
 	{
 		// Note: This function can be removed if not used
-		
-		
+
+
 		// vars
 		$url = $this->settings['url'];
 		$version = $this->settings['version'];
-		
-		
+
+
 		// register & include JS
 		wp_register_script('acf-multi-dates-picker-lib', "{$url}assets/js/jquery-ui.multidatespicker.js", array('acf-input'), $version);
 		wp_enqueue_script('acf-multi-dates-picker-lib');
 
 		wp_register_script('acf-multi-dates-picker', "{$url}assets/js/input.js", array('acf-input'), $version);
 		wp_enqueue_script('acf-multi-dates-picker');
-		
-		
+
+
 		// register & include CSS
 		wp_register_style('acf-multi-dates-picker-lib', "{$url}assets/css/jquery-ui.multidatespicker.css", array('acf-input'), $version);
 		wp_enqueue_style('acf-multi-dates-picker-lib');
 
 		wp_register_style('acf-multi-dates-picker', "{$url}assets/css/input.css", array('acf-input'), $version);
 		wp_enqueue_style('acf-multi-dates-picker');
-		
+
 	}
-	
-	
+
+
 	/*
 	*  input_admin_head()
 	*
@@ -188,8 +188,8 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 	{
 		// Note: This function can be removed if not used
 	}
-	
-	
+
+
 	/*
 	*  field_group_admin_enqueue_scripts()
 	*
@@ -207,7 +207,7 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 		// Note: This function can be removed if not used
 	}
 
-	
+
 	/*
 	*  field_group_admin_head()
 	*
@@ -241,14 +241,14 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 	*
 	*  @return	$value - the value to be saved in the database
 	*/
-	
+
 	function load_value( $value, $post_id, $field )
 	{
 		$value = json_encode($value);
 		return $value;
 	}
-	
-	
+
+
 	/*
 	*  update_value()
 	*
@@ -264,14 +264,14 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 	*
 	*  @return	$value - the modified value
 	*/
-	
+
 	function update_value( $value, $post_id, $field )
 	{
 		$value = explode(', ', $value);
 		return $value;
 	}
-	
-	
+
+
 	/*
 	*  format_value()
 	*
@@ -287,16 +287,16 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 	*
 	*  @return	$value	- the modified value
 	*/
-	
+
 	function format_value( $value, $post_id, $field )
 	{
 		$value = (array)json_decode($value);
-		if (!empty($value)) 
+		if (!empty($value))
 			$value = implode(',', $value);
 		return $value;
 	}
-	
-	
+
+
 	/*
 	*  format_value_for_api()
 	*
@@ -312,14 +312,14 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 	*
 	*  @return	$value	- the modified value
 	*/
-	
+
 	function format_value_for_api( $value, $post_id, $field )
 	{
 		$value = json_decode($value);
 		return $value;
 	}
-	
-	
+
+
 	/*
 	*  load_field()
 	*
@@ -333,14 +333,14 @@ class pdg_acf_field_multi_dates_picker extends acf_field {
 	*
 	*  @return	$field - the field array holding all the field options
 	*/
-	
+
 	function load_field( $field )
 	{
 		// Note: This function can be removed if not used
 		return $field;
 	}
-	
-	
+
+
 	/*
 	*  update_field()
 	*
