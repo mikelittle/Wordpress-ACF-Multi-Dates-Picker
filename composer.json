@@ -1,0 +1,19 @@
+{
+  "name": "zed1/acf-multi-dates-picker",
+  "description": "Advanced Custom Fields Multi Dates Picker",
+  "keywords": ["wordpress", "plugin", "ACF"],
+  "homepage": "https://:mikelittle/Wordpress-ACF-Multi-Dates-Picker",
+  "license": "GPL2+",
+  "authors": [
+    {
+      "name": "Mike Little",
+      "email": "mike@zed1.com",
+      "homepage": "https://mikelittle.org/"
+    }
+  ],
+  "type": "wordpress-plugin",
+  "require": {
+    "php": ">=8.0",
+    "composer/installers":  "^1.0 || ^2.0"
+  }
+}
